@@ -451,6 +451,22 @@ logan.schema("MOZ_LOG",
     schema.module("nsHttp", (module) => {
 
       /******************************************************************************
+       * nsHttpHandler
+       ******************************************************************************/
+
+      module.rule("Creating nsHttpHandler [this=%p].", function(ptr) {
+        this.obj(ptr).create("nsHttpHandler");
+      });
+
+      module.rule("Deleting nsHttpHandler [this=%p]", function(ptr) {
+        this.obj(ptr).destroy();
+      });
+
+      module.rule("nsHttpHandler::NotifyObservers [this=%p chan=%p event=%s]", function(ptr, channelPtr, eventTopic) {
+        this.obj(ptr).capture();
+      });
+
+      /******************************************************************************
        * HttpChannelChild
        ******************************************************************************/
 
